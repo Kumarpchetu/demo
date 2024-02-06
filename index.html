@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera App</title>
+    <style>
+        #overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px dashed #CCC;
+            width: 300px; /* Adjust based on typical check size */
+            height: 150px; /* Adjust based on typical check size */
+            display: none;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+<input type="file" accept="image/*" id="cameraInput" capture="environment" style="display: none;">
+<div id="overlay"></div>
+<img id="photo" src="" alt="The screen capture will appear in this box.">
+
+<button id="openCamera">Open Camera</button>
+
+<script>
+document.getElementById('openCamera').addEventListener('click', function() {
+    document.getElementById('cameraInput').click();
+    document.getElementById('overlay').style.display = 'block';
+});
+
+document.getElementById('cameraInput').addEventListener('change', function(e) {
+    document.getElementById('overlay').style.display = 'none'; // Hide overlay after picture is taken
+    if (e.target.files && e.target.files[0]) {
+        var imgURL = URL.createObjectURL(e.target.files[0]);
+        document.getElementById('photo').src = imgURL;
+    }
+});
+
+</script>
+</body>
+</html>
